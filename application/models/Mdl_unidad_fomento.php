@@ -39,4 +39,15 @@ class Mdl_unidad_fomento extends CI_MODEL
 			return $this->db->_error_message();
 		}
 	}
+	public function Eliminar($id){
+		$this->db->delete('unidad_fomento', array('id' => $id));
+		if($this->db->affected_rows() == 1)
+		{
+			return true;
+		}
+		else
+		{
+			return $this->db->_error_message();
+		}
+	}
 }
