@@ -40,7 +40,7 @@
 				<tbody>
 					<?php
 						foreach(json_decode($juf) as $tmp){
-							echo "<tr><td style='display: none;'>".$tmp->id."</td><td>".$tmp->fecha."</td><td>".$tmp->valor."</td><td><input type='button' class='btn btn-success botoneditar' data-id='".$tmp->id."' data-fecha='".$tmp->fecha."' data-valor='".$tmp->valor."' value='Editar'></td><td><input type='button' class='btn btn-success botoneditar' data-id='".$tmp->id."' value='Eliminar'></td></tr>";
+							echo "<tr><td style='display: none;'>".$tmp->id."</td><td>".$tmp->fecha."</td><td>".$tmp->valor."</td><td><input type='button' class='btn btn-success botoneditar' data-id='".$tmp->id."' data-fecha='".$tmp->fecha."' data-valor='".$tmp->valor."' value='Editar'></td><td><input type='button' class='btn btn-success botoneliminar' data-id='".$tmp->id."' value='Eliminar'></td></tr>";
 						}
 					?>
 				</tbody>
@@ -66,6 +66,47 @@ $(document).ready(function(){
 			.done(function( msg ) {
 				$('#modal_contenido .modal-body').html(msg);
 				$('#modal_contenido').modal('show');
+			});
+		}
+    });	
+	$('.botoneditar').click(function() {
+		var controlador='Ctl_historico_uf/editar_registro';
+		var id = $(this).data('id');
+		var parametros = {
+			'id' : id
+		};
+		if (typeof controlador !== typeof undefined && controlador !== false)
+		{
+			$.ajax({
+				data: parametros,
+			  method: 'POST',
+			  url: '<?php echo base_url();?>index.php/'+controlador,
+			  beforeSend: function( xhr ) {
+			  }
+			})
+			.done(function( msg ) {
+				$('#modal_contenido .modal-body').html(msg);
+				$('#modal_contenido').modal('show');
+			});
+		}
+    });
+	$('.botoneliminar').click(function() {
+		var controlador='Ctl_historico_uf/Eliminar';
+		var id = $(this).data('id');
+		var parametros = {
+			'id' : id
+		};
+		if (typeof controlador !== typeof undefined && controlador !== false)
+		{
+			$.ajax({
+				data: parametros,
+			  method: 'POST',
+			  url: '<?php echo base_url();?>index.php/'+controlador,
+			  beforeSend: function( xhr ) {
+			  }
+			})
+			.done(function( msg ) {
+				alert(msg);
 			});
 		}
     });	
